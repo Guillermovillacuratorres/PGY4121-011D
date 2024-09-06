@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -11,12 +11,21 @@ export class InicioPage implements OnInit {
   correo:string = "";
   
 
-  constructor(private activateRoute:ActivatedRoute) { }
+  constructor(private activateRoute:ActivatedRoute,
+              private router:Router
+  ) { }
 
   ngOnInit() {
     this.correo = this.activateRoute.snapshot.params["correo"];
     console.log("PARAMETRO URL  ----> ", this.correo);
     
+  }
+
+
+  viaje(){
+    let destino = "Argentina";
+                      //path: 'viaje/:destino',
+    this.router.navigateByUrl('viaje/' + destino);
   }
 
 }
