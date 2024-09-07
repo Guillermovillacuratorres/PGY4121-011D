@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,9 +6,15 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './viaje.page.html',
   styleUrls: ['./viaje.page.scss'],
 })
-export class ViajePage implements OnInit {
+export class ViajePage implements OnInit, OnDestroy {
 
   constructor(private activateRoute:ActivatedRoute) { }
+
+  
+  ngOnDestroy(): void {
+    console.log("destruyendo!!");
+    
+  }
 
   destino:string = "";
 

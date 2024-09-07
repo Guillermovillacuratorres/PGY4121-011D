@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'miPrimeraApp',
+  appId: 'cl.villaitu.uberduocs',
+  appName: 'UberDoucs',
   webDir: 'www'
 };
 
