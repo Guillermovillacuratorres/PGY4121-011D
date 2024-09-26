@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginPage implements OnInit {
 
 
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private firebase:FirebaseService) { }
 
   ngOnInit() {
   }
@@ -31,12 +32,12 @@ export class LoginPage implements OnInit {
       alert("Ingrese una contraseña");
       return;
     }
-    if (this.correo == "123" && this.contrasena == '123') {
+    /* if (this.correo == "123" && this.contrasena == '123') {
       this.router.navigateByUrl("/inicio");
     }else{
       alert("Credenciales incorrectas.");
-    }
-    
+    } */
+    this.firebase.login(this.correo,this.contrasena);
   }
 
 }
