@@ -6,6 +6,7 @@ import { ElementRef, ViewChildren, ViewChild } from '@angular/core';
 import type { QueryList } from '@angular/core';
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 
 
@@ -24,7 +25,8 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
 
   constructor(private activateRoute:ActivatedRoute,
               private router:Router,
-              private animationCtrl: AnimationController
+              private animationCtrl: AnimationController,
+              private firebase:FirebaseService
   ) { }
   ionViewDidLeave(): void {
     console.log("view did leave");
@@ -95,6 +97,7 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
 
 
   logout(){
+    this.firebase.logout();
     this.router.navigateByUrl('/login');
   }
 

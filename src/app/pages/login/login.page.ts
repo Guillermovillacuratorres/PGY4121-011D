@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
 
 
 
-  constructor(private router:Router, private firebase:FirebaseService) { }
+  constructor(private router:Router, private firebase:FirebaseService, private helper:HelperService) { }
 
   ngOnInit() {
   }
@@ -25,11 +26,11 @@ export class LoginPage implements OnInit {
   login(){
   
     if (this.correo == "") {
-      alert("Ingrese un correo");
+      this.helper.showAlert("Ingrese el correo", "Error de validación");
       return;
     }
     if (this.contrasena == "") {
-      alert("Ingrese una contraseña");
+      this.helper.showAlert("Ingrese la contraseña", "Error de validación");
       return;
     }
     /* if (this.correo == "123" && this.contrasena == '123') {
@@ -38,6 +39,15 @@ export class LoginPage implements OnInit {
       alert("Credenciales incorrectas.");
     } */
     this.firebase.login(this.correo,this.contrasena);
+    this.router.navigateByUrl("/inicio");
+  }
+
+  resetPw(){
+    this.router.navigateByUrl("reset-password");
+  }
+
+  registro(){
+    this.router.navigateByUrl("registro");
   }
 
 }
