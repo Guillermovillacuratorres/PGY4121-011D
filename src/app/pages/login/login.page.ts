@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { HelperService } from 'src/app/services/helper.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -10,20 +11,25 @@ import { HelperService } from 'src/app/services/helper.service';
 })
 export class LoginPage implements OnInit {
 
-  correo:string = "";
-  contrasena:string = "";
+  correo:string = "asd@asd.cl";
+  contrasena:string = "123456";
 
 
 
 
 
-  constructor(private router:Router, private firebase:FirebaseService, private helper:HelperService) { }
+  constructor(private router:Router, 
+              private firebase:FirebaseService, 
+              private helper:HelperService,
+              private storage:StorageService
+            
+            ) { }
 
   ngOnInit() {
   }
 
 
-  login(){
+  async login(){
   
     if (this.correo == "") {
       this.helper.showAlert("Ingrese el correo", "Error de validación");
@@ -39,6 +45,24 @@ export class LoginPage implements OnInit {
       alert("Credenciales incorrectas.");
     } */
     this.firebase.login(this.correo,this.contrasena);
+
+    const jsonToken = 
+    [
+      {
+        "token":"123hbkjasnbdkjbsdkjs123",
+        "nombre":"PGY4121"
+      }
+    ];
+
+    this.storage.agregarToken(jsonToken);
+
+
+
+    //Obtenemos la info que guardamos en storage
+    let token = await this.storage.obtenerStorage();
+    console.log(token[0].nombre);
+    
+
     this.router.navigateByUrl("/inicio");
   }
 
