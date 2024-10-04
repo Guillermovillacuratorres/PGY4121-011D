@@ -10,8 +10,14 @@ export class FirebaseService {
 
 
   async login(email:string, contrasena:string){
-    const request = await this.fire.signInWithEmailAndPassword(email,contrasena); 
-    return request;
+/*     const request = await this.fire.signInWithEmailAndPassword(email,contrasena); 
+    return request; */
+
+    try {
+      return await this.fire.signInWithEmailAndPassword(email,contrasena); 
+    } catch (error: any) {
+      throw error;
+    }
   }
 
 

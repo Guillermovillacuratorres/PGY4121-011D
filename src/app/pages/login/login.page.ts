@@ -44,7 +44,28 @@ export class LoginPage implements OnInit {
     }else{
       alert("Credenciales incorrectas.");
     } */
-    this.firebase.login(this.correo,this.contrasena);
+
+    const loader = await this.helper.showLoader("Cargando");
+    try {
+
+      await this.firebase.login(this.correo,this.contrasena);
+      loader.dismiss();
+    } catch (error:any) {
+      
+      let msg = "Ocurrió un error al iniciar sesión.";
+      
+      if(error.code == "auth/invalid-credential1"){
+        msg = "Credenciales incorrectas.";
+      }else if(error.code == "auth/wrong-password1"){
+        msg = "Contraseña incorrecta.";
+      }else if(error.code == "auth/invalid-email1"){
+        msg = "Correo no valido.";
+      }
+
+
+      this.helper.showAlert(msg,"Aceptar");
+      loader.dismiss();
+    }
 
     const jsonToken = 
     [
