@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-registro',
@@ -10,8 +11,11 @@ export class RegistroPage implements OnInit {
 
   correo:string = "";
   contrasena:string = "";
+  telefono:string = "";
+  nombre:string = "";
 
-  constructor(private firebase:FirebaseService) { }
+  constructor(private firebase:FirebaseService
+  ) { }
 
   ngOnInit() {
   }
@@ -20,4 +24,6 @@ export class RegistroPage implements OnInit {
     this.firebase.registro(this.correo,this.contrasena);
   }
 
+
+  
 }

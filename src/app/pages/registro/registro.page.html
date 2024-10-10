@@ -13,7 +13,20 @@
       <ion-item>
         <ion-input [(ngModel)]="contrasena" label="Contraseña"></ion-input>
       </ion-item>
+      <ion-item >
+        <ion-input [(ngModel)]="nombre" label="Nombre"></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-input [(ngModel)]="telefono" label="Telefono"></ion-input>
+      </ion-item>
 
+
+        <img src="assets/img/catdog.jpg" alt="">
+
+        <ion-button>
+          <ion-icon style="margin-right: 10px;" name="camera-outline"></ion-icon>
+          Tomar foto
+        </ion-button>
     </ion-list>
 
     <ion-button  (click)="registro()"> Registro</ion-button>

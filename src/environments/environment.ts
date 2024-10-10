@@ -11,7 +11,8 @@ export const environment = {
     storageBucket: "villacura-2024.appspot.com",
     messagingSenderId: "340683257484",
     appId: "1:340683257484:web:c74cee9560b4172701ada9"
-  }
+  },
+  apiUrl:"https://uber-nodejs-server-git-d61f89-guillermovillacuratorres-projects.vercel.app/api/"
   
 };
 
