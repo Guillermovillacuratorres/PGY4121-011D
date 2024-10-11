@@ -21,9 +21,11 @@
       </ion-item>
 
 
-        <img src="assets/img/catdog.jpg" alt="">
+        
+          <img *ngIf="imagen" [src]="imagen.src" height="100" width="100" alt="">
+        
 
-        <ion-button>
+        <ion-button (click)="takePhoto()">
           <ion-icon style="margin-right: 10px;" name="camera-outline"></ion-icon>
           Tomar foto
         </ion-button>
