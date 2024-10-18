@@ -13,18 +13,18 @@
   <ng-container *ngIf="loaded"> 
     <h1>{{correo}}</h1>
 
-    <ion-button (click)="viaje()">
+    <!-- <ion-button (click)="viaje()">
       Viaje
     </ion-button>
-  
-  
+   -->
+<!--   
     <ion-card #card>
       <ion-card-content>Card</ion-card-content>
     </ion-card>
     
     <ion-button (click)="play()">Play</ion-button>
     <ion-button (click)="pause()">Pause</ion-button>
-    <ion-button (click)="stop()">Stop</ion-button>
+    <ion-button (click)="stop()">Stop</ion-button> -->
 
   </ng-container>
 
@@ -55,6 +55,25 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
+
+
+  <ion-card *ngFor="let i of viajes" (click)="seleccionarViaje(i.id_usuario)">
+        <div class="box">
+          <ion-img [src]="i.imagen_vehiculo"></ion-img>
+        </div>
+    <h3>Origen: {{i.ubicacion_origen}}</h3>
+    <h3>Destino: {{i.ubicacion_destino}}</h3>
+
+    <div class="vertical">
+      <ion-label>Patente: {{i.patente}}</ion-label>
+      <ion-label>Color: {{i.color}}</ion-label>
+      <ion-label>Marca: {{i.marca}}</ion-label> 
+      <ion-label>Modelo: {{i.modelo}}</ion-label>
+    </div>
+  </ion-card>
+
+
 
 
 </ion-content>

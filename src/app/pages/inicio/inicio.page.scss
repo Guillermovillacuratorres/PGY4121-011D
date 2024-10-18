@@ -2,3 +2,27 @@ ion-icon{
     font-size: 25px;
     margin-right: 15px;
 }
+
+ion-img{
+    height: 100px;
+    width: 100px;
+}
+
+.vertical{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+
+.box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+ion-card{
+    padding: 20px;
+}

@@ -30,6 +30,7 @@ export class LoginPage implements OnInit {
             ) { }
 
   ngOnInit() {
+    
   }
 
 
@@ -54,7 +55,7 @@ export class LoginPage implements OnInit {
 
       const reqFirebase = await this.firebase.login(this.correo,this.contrasena);
       //solicitud get user
-      const token = await  reqFirebase.user?.getIdToken();
+      const token = await reqFirebase.user?.getIdToken();
 
       if (token) {
         this.token = token;
@@ -68,7 +69,7 @@ export class LoginPage implements OnInit {
         console.log("DATA USUARIO", this.usuario[0].id_usuario);
         
       }
-
+      
       loader.dismiss();
     } catch (error:any) {
       
@@ -102,9 +103,9 @@ export class LoginPage implements OnInit {
 
     //Obtenemos la info que guardamos en storage
     let token = await this.storage.obtenerStorage();
-    console.log(token[0].nombre);
+    console.log(token[0].usuario_correo);
     
-
+    await this.helper.showToast("Login correcto!!!!!");
     this.router.navigateByUrl("/inicio");
   }
 

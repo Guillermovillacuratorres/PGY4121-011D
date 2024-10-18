@@ -10,6 +10,8 @@ import { FirebaseService } from 'src/app/services/firebase.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { UserModel } from 'src/app/models/usuario';
+import { ViajeService } from 'src/app/services/viaje.service';
+import { HelperService } from 'src/app/services/helper.service';
 
 
 
@@ -23,6 +25,7 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
   correo:string = "";
   loaded:boolean = false;
   usuario:UserModel[]=[];
+  viajes:any[]=[];
   
   @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLIonCardElement> | undefined;
   private animation: Animation | undefined;
@@ -32,8 +35,30 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
               private animationCtrl: AnimationController,
               private firebase:FirebaseService,
               private usuarioService:UsuarioService,
-              private storage:StorageService
+              private storage:StorageService,
+              private viajeService:ViajeService,
+              private helper:HelperService
   ) { }
+
+
+
+
+  
+  seleccionarViaje(parId:number){
+    console.log("Viaje seleccionado ", parId);
+    
+  }
+
+
+
+
+  async cargarViajes(){
+    let dataStorage = await this.storage.obtenerStorage();
+    const req = await this.viajeService.obtenerViaje(dataStorage[0].token);
+    this.viajes = req.data;
+  }
+
+
 
   async cargarUsuario(){
     let dataStorage = await this.storage.obtenerStorage();
@@ -46,7 +71,6 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
     );
     this.usuario = req.data;
     console.log("DATA INICIO USUARIO ", this.usuario);
-    
   }
 
 
@@ -83,6 +107,7 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
 
   ngOnInit() {
     this.cargarUsuario();
+    this.cargarViajes();  
     this.correo = this.activateRoute.snapshot.params["correo"];
     console.log("PARAMETRO URL  ----> ", this.correo);
     
@@ -120,9 +145,13 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
 
 
 
-  logout(){
-    this.firebase.logout();
-    this.router.navigateByUrl('/login');
+  async logout(){
+    const confirmar = await this.helper.showConfirm("Esta seguro que desea cerrar sesion?");
+    if(confirmar){
+      this.firebase.logout();
+      this.router.navigateByUrl('/login');
+    }
+
   }
 
 
