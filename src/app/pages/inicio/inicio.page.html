@@ -7,6 +7,7 @@
 
 <ion-content [fullscreen]="true">
 
+<ion-img *ngIf="usuario.length > 0" [src]="usuario[0].imagen_usuario"></ion-img>
 
 
   <ng-container *ngIf="loaded"> 

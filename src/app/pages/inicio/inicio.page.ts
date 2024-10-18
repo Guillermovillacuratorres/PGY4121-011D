@@ -7,6 +7,9 @@ import type { QueryList } from '@angular/core';
 import type { Animation } from '@ionic/angular';
 import { AnimationController, IonCard } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { UserModel } from 'src/app/models/usuario';
 
 
 
@@ -19,6 +22,7 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
 
   correo:string = "";
   loaded:boolean = false;
+  usuario:UserModel[]=[];
   
   @ViewChild(IonCard, { read: ElementRef }) card: ElementRef<HTMLIonCardElement> | undefined;
   private animation: Animation | undefined;
@@ -26,8 +30,27 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
   constructor(private activateRoute:ActivatedRoute,
               private router:Router,
               private animationCtrl: AnimationController,
-              private firebase:FirebaseService
+              private firebase:FirebaseService,
+              private usuarioService:UsuarioService,
+              private storage:StorageService
   ) { }
+
+  async cargarUsuario(){
+    let dataStorage = await this.storage.obtenerStorage();
+    
+    const req = await this.usuarioService.obtenerUsuario(
+      {
+        p_correo:dataStorage[0].usuario_correo,
+        token:dataStorage[0].token
+      }
+    );
+    this.usuario = req.data;
+    console.log("DATA INICIO USUARIO ", this.usuario);
+    
+  }
+
+
+
   ionViewDidLeave(): void {
     console.log("view did leave");
     
@@ -59,6 +82,7 @@ export class InicioPage implements OnInit,ViewWillEnter, ViewDidEnter, ViewWillL
   }
 
   ngOnInit() {
+    this.cargarUsuario();
     this.correo = this.activateRoute.snapshot.params["correo"];
     console.log("PARAMETRO URL  ----> ", this.correo);
     

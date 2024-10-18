@@ -33,6 +33,19 @@ export class UsuarioService {
   }
 
 
+  async obtenerUsuario(data:dataGetUser){
+    try {
+      const params = {
+        p_correo: data.p_correo,
+        token:data.token
+      }
+      const response = await lastValueFrom(this.http.get<any>(environment.apiUrl + 'user/obtener',{params}));
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
 }
 
@@ -43,3 +56,7 @@ interface dataBodyUsuario{
   token?:string;
 }
 
+interface dataGetUser{
+  p_correo:string;
+  token:string;
+}
